@@ -7,23 +7,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class AuthorityInterceptor extends HandlerInterceptorAdapter {
-
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("MyInterCeptor - preHandle" + getClass().getSimpleName() + " url : " + request.getRequestURI().toString().trim());
+		System.out.println("API 인터셉터 수신받은 url의 파라미터값 : "+request.getParameter("authorityid"));
+		
+		String authorityid = request.getParameter("authorityid");
 		HttpSession session = request.getSession();
+		session.setAttribute("authorityid", authorityid);
 
-		String id = (String)session.getAttribute("shop"); 
-
-		if(id == null) {
-			System.out.println("세션 없음");
-			response.sendRedirect(request.getContextPath() + "/shop/");
-			return false;
-		}
-
-		System.out.println(id +" : 세션 있음");
 		return true;
 	}
 

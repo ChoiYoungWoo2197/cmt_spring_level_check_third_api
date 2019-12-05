@@ -1,11 +1,8 @@
 package co.kr.dao;
 
 import java.util.List;
-
-import javax.sql.DataSource;
-
-import co.kr.domain.Order;
+import co.kr.vo.Total;
 
 public interface OrderDao {
-	public List<Order> selectAll() throws Exception;
+	public List<Total> selectAll() throws Exception;
 }

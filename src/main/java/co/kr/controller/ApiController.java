@@ -1,20 +1,19 @@
 package co.kr.controller;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import co.kr.dao.OrderDao;
-import co.kr.domain.Order;
+import co.kr.vo.Total;
 
 /**
  * Handles requests for the application home page.
@@ -29,28 +28,21 @@ public class ApiController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "orders" , method = RequestMethod.GET)
-	public List<Order> home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		//OrderDaoImpl  orderServiceImple = new OrderDaoImpl();
-		List<Order> orderList = new ArrayList<Order>();
-		
+	public List<Total> api(Locale locale, HttpSession session, HttpServletRequest request) {
+		logger.info("api call {}.", locale);
+		List<Total> totalList = new ArrayList<Total>();
 		try {
-			//orderList = orderServiceImple.selectAll(dataSource);
-			orderList = dao.selectAll();
-			Date date = new Date();
-			DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+			String authority = (String) session.getAttribute("authorityid");
+			if(authority.equals("1234567")) {
+				totalList = dao.selectAll();
+			}
 			
-			String formattedDate = dateFormat.format(date);
-			
-			model.addAttribute("serverTime", formattedDate );
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return orderList;
+		return totalList;
 	}
-	
 
-	
 }

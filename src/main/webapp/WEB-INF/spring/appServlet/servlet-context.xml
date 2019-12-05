@@ -9,6 +9,15 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
+	<!-- 인터셉터 연결하기 -->
+	<beans:bean id="authorityInterceptor" class="co.kr.interceptor.AuthorityInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/orders"/>
+			<beans:ref bean="authorityInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -21,6 +30,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 애노테이션를 인식할수 있도록 선언 -->
 	<context:component-scan base-package="co.kr.controller" />
 	<context:component-scan base-package="co.kr.dao" />
 	

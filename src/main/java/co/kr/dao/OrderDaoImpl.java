@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.kr.domain.Order;
+import co.kr.vo.Total;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -17,26 +17,30 @@ public class OrderDaoImpl implements OrderDao {
 	private DataSource dataSource;
 		
 	@Override
-	public List<Order> selectAll() throws Exception {
+	public List<Total> selectAll() throws Exception {
 		// TODO Auto-generated method stub
+
+		List<Total> totalList = new ArrayList<Total>();
+		String selectSql = "select orders.Order_id, orders.Customer_id, customer.Customer_name, product.Product_id, product.Product_name " + 
+						   " FROM orders " + 
+						   " LEFT JOIN customer ON customer.Customer_id = orders.Customer_id " + 
+						   " LEFT JOIN product ON product.Product_id = orders.Product_id " + 
+						   ";";
 		
-		//connectDB();
-		List<Order> orderList = new ArrayList<Order>();
-		String selectSQL = "select * from `dbcheck`.`order`";
+		Connection connection = dataSource.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
+		ResultSet resultSet = preparedStatement.executeQuery();
 		
-		Connection conn = dataSource.getConnection();
-		PreparedStatement pstmt = conn.prepareStatement(selectSQL);
-		ResultSet rs = pstmt.executeQuery();
-		
-		while (rs.next()) {
-			Order obj = new Order();
-			obj.setOrderId(rs.getString("Order_id"));
-			obj.setCustomId(rs.getString("Customer_id"));
-			obj.setProductId(rs.getString("Product_id"));
-			orderList.add(obj);
-			
+		while (resultSet.next()) {
+			Total object = new Total();
+			object.setOrderId(resultSet.getInt("Order_id"));
+			object.setCustomId(resultSet.getInt("Customer_id"));
+			object.setCustomName(resultSet.getString("Customer_name"));
+			object.setProductId(resultSet.getInt("Product_id"));
+			object.setProductName(resultSet.getString("Product_name"));
+			totalList.add(object);	
 		}
 		
-		return orderList;
+		return totalList;
 	}
 }
