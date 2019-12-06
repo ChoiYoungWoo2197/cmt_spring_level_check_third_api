@@ -34,5 +34,4 @@
 	<context:component-scan base-package="co.kr.controller" />
 	<context:component-scan base-package="co.kr.dao" />
 	
-	
 </beans:beans>

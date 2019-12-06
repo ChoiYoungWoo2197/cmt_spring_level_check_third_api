@@ -7,9 +7,10 @@
 </head>
 <body>
 <h1>
-	나는 api
+	파일 업로드
 </h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+	<form id="upLoadForm" name="upLoadForm" method="post"	action="upLoad.do">
+		<input type="submit" value="엑셀 파일 업로드" />
+	</form>
 </body>
 </html>
