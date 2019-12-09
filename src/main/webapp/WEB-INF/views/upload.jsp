@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>파일 업로드</h1>
-	<form id="excelForm" action="excelUpload" enctype="multipart/form-data"
+	<form id="excelForm" action="excelUpLoad" enctype="multipart/form-data"
 		method="post">
 		<input type="file" id="file" name="file" value="엑셀업로드" accept=".xlsx">
 		<input type="submit" value="업로드">

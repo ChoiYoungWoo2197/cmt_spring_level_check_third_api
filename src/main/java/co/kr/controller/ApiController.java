@@ -35,7 +35,7 @@ public class ApiController {
 	@Autowired
 	private ExcelService excelService;
 
-	@Resource(name = "uploadPath")
+	@Resource(name = "upLoadPath")
 	String upLoadPath;
 	
 	@ResponseBody
@@ -63,8 +63,8 @@ public class ApiController {
 		return "upload";
 	}
 
-	@RequestMapping(value="/excelUpload", method=RequestMethod.POST, produces="text/plain")
-	public String upload(MultipartHttpServletRequest request, Model mode) throws Exception {
+	@RequestMapping(value="/excelUpLoad", method=RequestMethod.POST, produces="text/plain")
+	public String upLoad(MultipartHttpServletRequest request, Model mode) throws Exception {
 		System.out.println("excelUpload call!!");
 		
 		try {
@@ -78,7 +78,7 @@ public class ApiController {
 	        File tempFile = new File(upLoadPath, tempFileName);
 	        FileCopyUtils.copy(file.getBytes(), tempFile);
 	        
-			List<Total> totalList = excelService.uploadExcelFile(upLoadPath + "\\" + file.getOriginalFilename());
+			List<Total> totalList = excelService.upLoadExcelFile(upLoadPath + "\\" + file.getOriginalFilename());
 			
 			if(tempFile.exists()) {
 				tempFile.delete();

@@ -17,7 +17,7 @@ import co.kr.vo.Total;
 public class ExcelServiceImpl implements ExcelService {
 
 	@Override
-	public List<Total> uploadExcelFile(String excelFile) {
+	public List<Total> upLoadExcelFile(String excelFile) {
 		// TODO Auto-generated method stub
 		 List<Total> list = new ArrayList<Total>();
 	        try {
@@ -36,13 +36,12 @@ public class ExcelServiceImpl implements ExcelService {
 	                    continue;
 	                }
 	                
-	                // 행의 두번째 열(이름부터 받아오기) 
+	                // 행의 두번째 열(첫번째부터 받아오기) 
 	                total.setOrderId(Integer.parseInt(cellValue(row.getCell(0))));
 	                total.setCustomId(Integer.parseInt(cellValue(row.getCell(1))));
 	                total.setCustomName(cellValue(row.getCell(2)));
 	                total.setProductId(Integer.parseInt(cellValue(row.getCell(3))));
 	                total.setProductName(cellValue(row.getCell(4)));
-
 	                
 	                list.add(total);
 	            }

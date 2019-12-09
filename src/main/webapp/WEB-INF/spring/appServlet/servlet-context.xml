@@ -14,8 +14,7 @@
 		<beans:property name="maxUploadSize" value="10000000"></beans:property>
 	</beans:bean>
 	
-	
-	
+		
 	<!-- 인터셉터 연결하기 -->
 	<beans:bean id="authorityInterceptor" class="co.kr.interceptor.AuthorityInterceptor"></beans:bean>
 	<interceptors>
@@ -38,7 +37,7 @@
 	</beans:bean>
 	
 	<!-- 파일 업로드를 위한 bean추가 -->
-	<beans:bean id="uploadPath"
+	<beans:bean id="upLoadPath"
 		class="java.lang.String">
 		<beans:constructor-arg value="C:\Users\cmt_dg\Downloads\upload"></beans:constructor-arg>
 	</beans:bean>
