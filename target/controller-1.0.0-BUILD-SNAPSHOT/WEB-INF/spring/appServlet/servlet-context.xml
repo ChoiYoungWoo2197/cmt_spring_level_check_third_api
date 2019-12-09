@@ -8,6 +8,13 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<!-- MultipartResolver -->
+	<beans:bean name="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10000000"></beans:property>
+	</beans:bean>
+	
+	
 	
 	<!-- 인터셉터 연결하기 -->
 	<beans:bean id="authorityInterceptor" class="co.kr.interceptor.AuthorityInterceptor"></beans:bean>
@@ -30,9 +37,16 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 파일 업로드를 위한 bean추가 -->
+	<beans:bean id="uploadPath"
+		class="java.lang.String">
+		<beans:constructor-arg value="C:\Users\cmt_dg\Downloads\upload"></beans:constructor-arg>
+	</beans:bean>
+	
+	
 	<!-- 애노테이션를 인식할수 있도록 선언 -->
 	<context:component-scan base-package="co.kr.controller" />
 	<context:component-scan base-package="co.kr.dao" />
-	
+	<context:component-scan	base-package="co.kr.service" />
 	
 </beans:beans>
